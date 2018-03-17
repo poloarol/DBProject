@@ -1,9 +1,10 @@
 from flask import Flask, render_template
 from sqlalchemy import create_engine
-from model import db, Restuarant
+from model import db, Restuarant, Locations
 from faker import Faker
 
 import socketserver as socketserver
+import traceback as traceback
 
 app = Flask(__name__)
 
@@ -19,20 +20,40 @@ db.init_app(app)
 # db.create_all()
 
 with app.app_context():
+    # db.drop_all()
+    # db.create_all()
+    data = ""
     try:
-        db.drop_all()
-        db.create_all()
-        resto = Restuarant(name="Joe's", type="Bar & Grill", url="joeysshit")
-        db.session.add(resto)
-        db.session.commit()
+        print(data)
+        # with open("db.txt", "r") as f:
+        #     for line in f:
+                # data = line.split(",")
+                # resto = Restuarant(name=data[0], type=data[1], url="")
+                # db.session.add(resto)
+                # db.session.commit()
+                # elif(line == "time"):
+                #     next(line)
+                # fdate = fake.date(pattern="%Y-%m-%d", end_datetime=None)
+                # name = fake.name()
+                # phone = fake.phone_number()
+                # street = fake.street_address()
+                # data = line.split(",")
+                # loco = Locations(first_open_date=fdate,
+                #                  manager_name=name,
+                #                  phone_number=phone,
+                #                  street_address=street,
+                #                  hour_open=data[0],
+                #                  hour_close=data[1],
+                #                  restaurantid=data[2])
+                # db.session.add(loco)
+                # db.session.commit()
     except Exception:
-        print("Unable to add tuple to database")
+        traceback.print_exc()
 
 
 @app.route("/")
 def main():
-    r = Restuarant.query.filter_by()
-    return "Hello World"
+    return fake.name()
 
 
 if __name__ == '__main__':
