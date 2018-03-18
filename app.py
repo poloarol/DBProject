@@ -1,6 +1,6 @@
 from flask import Flask, render_template
 from sqlalchemy import create_engine
-from model import db, Restuarant, Locations
+from model import db, Resto, Locals, User, Item, Ratings, RateItem
 from faker import Faker
 
 import socketserver as socketserver
@@ -20,15 +20,14 @@ db.init_app(app)
 # db.create_all()
 
 with app.app_context():
-    # db.drop_all()
-    # db.create_all()
-    data = ""
+    data = ''
     try:
-        print(data)
-        # with open("db.txt", "r") as f:
-        #     for line in f:
-                # data = line.split(",")
-                # resto = Restuarant(name=data[0], type=data[1], url="")
+        # db.drop_all()
+        # db.create_all()
+        with open("db.txt", "r") as f:
+            for line in f:
+                data = line.split(",")
+                # resto = Resto(name=data[0], type=data[1], url="")
                 # db.session.add(resto)
                 # db.session.commit()
                 # elif(line == "time"):
@@ -38,15 +37,19 @@ with app.app_context():
                 # phone = fake.phone_number()
                 # street = fake.street_address()
                 # data = line.split(",")
-                # loco = Locations(first_open_date=fdate,
+                # loco = Locals(first_open_date=fdate,
                 #                  manager_name=name,
                 #                  phone_number=phone,
                 #                  street_address=street,
                 #                  hour_open=data[0],
                 #                  hour_close=data[1],
                 #                  restaurantid=data[2])
-                # db.session.add(loco)
-                # db.session.commit()
+                email = fake.email()
+                date = fake.date(pattern="%Y-%m-%d", end_datetime=None)
+                user = User(email, data[0], date, data[1], 1)
+                db.session.add(user)
+                db.session.commit()
+
     except Exception:
         traceback.print_exc()
 
