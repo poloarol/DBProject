@@ -1,6 +1,6 @@
 from flask import Flask, render_template
 from sqlalchemy import create_engine
-from model import db, Resto, Locals, User, Item, Ratings, RateItem
+from model import db, Resto, Locals, User
 from faker import Faker
 
 import socketserver as socketserver
@@ -21,12 +21,13 @@ db.init_app(app)
 
 with app.app_context():
     data = ''
-    try:
+    print(data)
+    # try:
         # db.drop_all()
         # db.create_all()
-        with open("db.txt", "r") as f:
-            for line in f:
-                data = line.split(",")
+        # with open("db.txt", "r") as f:
+        #     for line in f:
+        #         data = line.split(",")
                 # resto = Resto(name=data[0], type=data[1], url="")
                 # db.session.add(resto)
                 # db.session.commit()
@@ -44,14 +45,14 @@ with app.app_context():
                 #                  hour_open=data[0],
                 #                  hour_close=data[1],
                 #                  restaurantid=data[2])
-                email = fake.email()
-                date = fake.date(pattern="%Y-%m-%d", end_datetime=None)
-                user = User(email, data[0], date, data[1], 1)
-                db.session.add(user)
-                db.session.commit()
-
-    except Exception:
-        traceback.print_exc()
+    #             email = fake.email()
+    #             date = fake.date(pattern="%Y-%m-%d", end_datetime=None)
+    #             user = User(email, data[0], date, data[1], 1)
+    #             db.session.add(user)
+    #             db.session.commit()
+    #
+    # except Exception:
+    #     traceback.print_exc()
 
 
 @app.route("/")

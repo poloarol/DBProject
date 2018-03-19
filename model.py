@@ -54,8 +54,10 @@ class User(db.Model):
     email = db.Column(db.VARCHAR(30), nullable=False)
     name = db.Column(db.VARCHAR(15), nullable=False)
     join_date = db.Column(db.Date, nullable=False)
-    rater_type = db.Column(db.VARCHAR(15), db.CheckConstraint("rater_type IN ('online', 'blog', 'food critic')"), nullable=False)  # noqa
-    reputation = db.Column(db.Integer, db.CheckConstraint("1 >= reputation AND reputation <= 5"), nullable=False)  # noqa
+    rater_type = db.Column(db.VARCHAR(15), nullable=False)
+    reputation = db.Column(db.Integer, nullable=False)
+
+    __table_args__ = (db.CheckConstraint('reputation >= 1 AND reputation <= 5', name='reputation'),)  # noqa
 
     def __init__(self, email, name, join_date, rater_type, reputation):  # noqa
         self.email = email
@@ -70,10 +72,10 @@ class Ratings(db.Model):
     __tablename__ = 'rating'
     user_id = db.Column(db.Integer, db.ForeignKey("rater.user_id"), nullable=False, primary_key=True)  # noqa
     date = db.Column(db.Date(), nullable=False, primary_key=True)
-    price = db.Column(db.Integer, db.CheckConstraint("price >= 1 AND price <= 5"), nullable=False)  # noqa
-    food = db.Column(db.Integer, db.CheckConstraint("food >= 1 AND food <= 5"), nullable=False)  # noqa
-    mood = db.Column(db.Integer, db.CheckConstraint("mood >= 1 AND mood <= 5"), nullable=False)  # noqa
-    staff = db.Column(db.Integer, db.CheckConstraint("staff >= 1 AND staff <= 5"), nullable=False)  # noqa
+    price = db.Column(db.Integer, nullable=False)
+    food = db.Column(db.Integer, nullable=False)
+    mood = db.Column(db.Integer, nullable=False)
+    staff = db.Column(db.Integer, nullable=False)
     comments = db.Column(db.TEXT, nullable=True)
     restaurantid = db.Column(db.Integer, db.ForeignKey("restaurant.restaurantid"), nullable=False)  # noqa
 
@@ -86,6 +88,11 @@ class Ratings(db.Model):
         self.staff = staff
         self.comments = comments
         self.restaurantid = restaurantid
+
+    __table_args__ = (db.CheckConstraint('price >= 1 AND price <= 5', name='price'),  # noqa
+                      db.CheckConstraint('food >= 1 AND food <= 5', name='food'),  # noqa
+                      db.CheckConstraint('mood >= 1 AND mood <= 5', name='mood'),  # noqa
+                      db.CheckConstraint('staff >= 1 AND staff <= 5', name='staff',))  # noqa
 
 
 class Item(db.Model):
@@ -112,7 +119,7 @@ class RateItem(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey("rater.user_id"), primary_key=True)  # noqa
     date = db.Column(db.Date(), primary_key=True)
     item_id = db.Column(db.Integer, db.ForeignKey("menuitem.item_id"), primary_key=True)  # noqa
-    rating = db.Column(db.Integer, db.CheckConstraint("rating >= 1 AND rating <= 5"), nullable=False)  # noqa
+    rating = db.Column(db.Integer, nullable=False)  # noqa
     comment = db.Column(db.Text, nullable=False)
 
     def __init__(self, user_id, date, item_id, rating, comment):
@@ -121,3 +128,5 @@ class RateItem(db.Model):
         self.item_id = item_id
         self.rating = rating
         self.comment = comment
+
+    __table_args__ = (db.CheckConstraint('rating >= 1 AND rating <= 5', name='rating'),)  # noqa
