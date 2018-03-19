@@ -1,7 +1,8 @@
+Mohammed Yousri,Blog,1 
 Stone,blog,4
 La Puissance,food critic,1
 Kristy P,online,2
 L'huile,online,3
 MHD,blog,4
 Gims,blog,3
-Maska,blog,2
+Maska,blog,4

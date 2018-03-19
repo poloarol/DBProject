@@ -55,7 +55,7 @@ class User(db.Model):
     name = db.Column(db.VARCHAR(15), nullable=False)
     join_date = db.Column(db.Date, nullable=False)
     rater_type = db.Column(db.VARCHAR(15), db.CheckConstraint("rater_type IN ('online', 'blog', 'food critic')"), nullable=False)  # noqa
-    reputation = db.Column(db.Integer, db.CheckConstraint("1 >= reputation AND reputation <= 5"), nullable=False)  # noqa
+    reputation = db.Column(db.Integer, nullable=False)  # noqa
 
     def __init__(self, email, name, join_date, rater_type, reputation):  # noqa
         self.email = email
