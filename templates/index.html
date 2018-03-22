@@ -1,0 +1,24 @@
+{% extends "layout.html" %}
+
+{% block content %}
+  {{ super() }}
+  <div class="ui four cards">
+    {% for item in data %}
+      <div class="card">
+        <a href= >
+          <div class="image">
+            <img src="" alt="{{ item.name }}">
+          </div>
+        </a>
+          <div class="extra">
+            Rating:
+            <div class="ui star rating" data-max-rating ="5" data-rating="2"></div>
+          </div>
+      </div>
+    {% endfor %}
+  </div>
+  <script type="text/javascript" src="{{url_for('static', filename='js/script.js')}}"></script>
+{% endblock %}
+{% block footer %}
+  {{ super() }}
+{% endblock %}

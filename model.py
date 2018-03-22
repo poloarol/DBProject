@@ -105,10 +105,12 @@ class Item(db.Model):
     price = db.Column(db.Numeric(5, 2), nullable=False)
     restaurantid = db.Column(db.Integer, db.ForeignKey("restaurant.restaurantid"), nullable=False)  # noqa
 
-    def __init__(self, item_id, name, category, description, price, restaurantid):  # noqa
-        self.item_id = item_id
+    resto = db.relationship('Resto', backref='resto', lazy=True)
+
+    def __init__(self, name, category, description, price, restaurantid):  # noqa
         self.name = name
         self.description = description
+        self.category = category
         self.price = price
         self.restaurantid = restaurantid
 

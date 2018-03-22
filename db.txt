@@ -1,7 +1,25 @@
-Stone,blog,4
-La Puissance,food critic,1
-Kristy P,online,2
-L'huile,online,3
-MHD,blog,4
-Gims,blog,3
-Maska,blog,2
+Zosui,Appetiser
+Nanakusa-gayu,Appetiser
+Unadon,Appetiser
+pufferfish,Sea food
+crab,Sea food
+tobiko,Deserts
+salmon fish,Sea food
+shrimp or prawn,Sea food
+Tonkotsu Ramen,Appetise
+Kae-Dama,Appetiser
+1/2 Kae-Dama,Appetiser
+Simmered pork belly,Appetiser
+Tonkotsu Egg,Appetiser
+Matcha Pudding,Appetiser
+Tenmusu,Appetiser
+Tamago kake gohan,Appetiser
+Takikomi gohan,Appetiser
+Sekihan,Appetiser
+Onigiri,Appetiser
+Omurice,Appetiser
+Mochi,Appetiser
+Ochazuke,Appetiser
+Katemeshi,Appetiser
+Hayashi rice,Appetiser
+Chāhan,Appetiser

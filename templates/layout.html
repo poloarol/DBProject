@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="EN" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>CSI2132: Database Project</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.1/semantic.min.css"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.1/semantic.min.js"></script>
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/master.css') }}">
+  </head>
+  <body>
+    {% block content %}
+    <div class="bigimage">
+      <div class="pusher">
+        <div class="ui vertical center aligned segment">
+          <div class="ui container">
+            <div class="ui large secondary menu">
+              <div class="right item">
+                <div class="ui fluid category search">
+                  <div class="ui icon input">
+                    <input class="prompt" type="text" placeholder="Search restaurants...">
+                    <i class="search icon"></i>
+                  </div>
+                <div class="divise"></div>
+                </div>
+                <a class="ui inverted button space">Log in</a>
+                <div class="divise"></div>
+                <a class="ui inverted button space">Create Account</a>
+              </div>
+            </div>
+          </div>
+          <br><br><br><br><br>
+          <div class="ui text container">
+            <div class="ui huge primary button">Zuchini<i class="right arrow icon"></i></div>
+            <h1 class="ui inverted header">Find the best food in Dimension C-137</h1>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endblock %}
+    {% block footer %}
+    <footer>
+      <div class="ui inverted vertical footer segment form-page">
+        <div class="ui container">
+          Restaurant Finder | 2015
+        </div>
+      </div>
+    </footer>
+    {% endblock %}
+  </body>
+</html>
