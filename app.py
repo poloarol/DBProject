@@ -2,7 +2,7 @@ from flask import Flask, render_template
 from sqlalchemy import create_engine
 from model import db, Resto, Locals, User, Item
 from faker import Faker
-from sqlalchemy.sql import func
+from sqlalchemy import text
 
 import socketserver as socketserver
 import traceback as traceback
@@ -34,23 +34,43 @@ db.init_app(app)
 #             db.session.commit()
 
 
-@app.route("/")
+@app.route("/restaurant")
 def main():
     data = query_restaurants()
-    display_resto_info("Bar & Grill")
-    return render_template("index.html", data=data)
+    category = query_category()
+    return render_template("index.html", category=category, data=data)
 
 
-@app.route("/restaurant/items/<resto_name>")
-def find_resto_menu(resto_name):
-    data = db.session.query(Item, Resto).join(Resto, Item.restaurantid == Resto.restaurantid).filter(Resto.name == resto_name).order_by(Item.category).all()  # noqa
-    for item in data:
-        print(item.Item.category + " " + item.Item.name)
+@app.route("/restaurant/items/<resto_id>/<resto_name>")
+def find_resto_menu(resto_id, resto_name):
+    resto_item = db.session.query(Item, Resto).join(Resto, Item.restaurantid == Resto.restaurantid).filter(Resto.restaurantid == resto_id).order_by(Item.category).all()  # noqa
+
+    return render_template("item.html", data=resto_item)  # noqa
+
+
+# @app.route("/restaurant/<resto_id>")
+# def resto_info(resto_name):
+#     data = db.session.query(Locals, Resto).join(Resto, Locals.restaurantid == Resto.restaurantid).filter(Resto.restaurantid == resto_id)  # noqa
+#
+#     return render_template()
 
 
 @app.route("/restaurant/<resto_type>")
-def display_resto_info(resto_type):
-    print(1)
+def resto_category(resto_type):
+    data = db.session.query(Resto).filter(Resto.types == resto_type)
+    return render_template("type.html", data=data)
+
+
+# def find_max_item():
+#     data = db.session.execute("select * from restaurant")
+#     for item in data:
+#         print(data.name)
+#     for item in data:
+#         print(item.Item.name, item.Item.price, item.Locals.manager_name)
+
+def query_category():
+    data = db.session.query(Resto.types).order_by(Resto.types).distinct()
+    return data
 
 
 def query_restaurants():

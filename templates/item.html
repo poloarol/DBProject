@@ -1,0 +1,30 @@
+{% extends "layout.html" %}
+
+{% block content %}
+  {{ super() }}
+  <div class="ui four cards">
+    {% for item in data %}
+    <div class="ui card">
+      <div class="content">
+        <div class="header">{{ item.Item.name}}</div>
+      </div>
+      <div class="content">
+        <h4 class="ui sub header">{{ item.Item.category }}</h4>
+        <div class="ui small feed">
+          <div class="event">
+            <div class="content">
+              <div class="summary">
+                {{ item.Item.description }}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+  <script type="text/javascript" src="{{url_for('static', filename='js/script.js')}}"></script>
+{% endblock %}
+{% block footer %}
+  {{ super() }}
+{% endblock %}

@@ -10,16 +10,16 @@ class Resto(db.Model):
 
     restaurantid = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.VARCHAR(20), nullable=False, unique=True)
-    type = db.Column(db.VARCHAR(20), nullable=False)
+    types = db.Column(db.VARCHAR(20), nullable=False)
     url = db.Column(db.VARCHAR(50))
 
     def __init__(self, name, type, url):
         self.name = name
-        self.type = type
+        self.types = types
         self.url = url
 
     def __repr__(self):
-        return '<restaurantid> {}'.format(self.name, self.type, self.url)
+        return '<restaurantid> {}'.format(self.name, self.types, self.url)
 
 
 class Locals(db.Model):
