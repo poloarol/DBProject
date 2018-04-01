@@ -1,0 +1,66 @@
+{% extends "layout.html" %}
+
+{% block content %}
+  {{ super() }}
+
+  <div class="container rate">
+    <div class="ui card">
+      <div class="image">
+        <img src="https://imgc.allpostersimages.com/img/print/posters/rick-morty-free-rick_a-G-15140358-0.jpg">
+      </div>
+      <div class="extra">
+        Rating:
+        <div class="ui star restaurant rating" data-max-rating ="5" data-rating="2"></div>
+      </div>
+    </div>
+  </div>
+  <div class="container comm">
+    <div class="ui comments">
+      <h3 class="ui dividing header">Leave a review</h3>
+      {% for item in data %}
+      <div class="ui very large raised segment">
+        <div class="comment">
+          <a class="avatar">
+            <img src="/images/avatar/small/joe.jpg">
+          </a>
+          <div class="content">
+            <a class="author">{{item[0]}}</a>
+            <div class="metadata">
+              <div class="date">{{item[1]}}</div>
+            </div>
+            <div class="text">
+              <p>The hours, minutes and seconds stand as visible reminders that your effort put them all there. </p>
+              <p>{{item[2]}}</p>
+            </div>
+          </div>
+          <h4 class="header">Ratings</h4>
+          <div class="extra rate">
+            <div class="divise"></div>
+            <div>Food:
+              <div class="ui star restaurant rating" data-max-rating ="5" data-rating="{{item[3]}}"></div>
+            </div>
+            <div>Mood:
+              <div class="ui star restaurant rating" data-max-rating ="5" data-rating="{{item[4]}}"></div>
+            </div>
+            <div>Staff:
+              <div class="ui star restaurant rating" data-max-rating ="5" data-rating="{{item[5]}}"></div>
+            </div>
+            <div>Price:
+              <div class="ui star restaurant rating" data-max-rating ="5" data-rating="{{item[6]}}"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+      <form class="ui reply form">
+        <div class="field">
+          <textarea></textarea>
+        </div>
+        <div class="ui primary submit labeled icon button">
+          <i class="icon edit"></i> Add Comment
+        </div>
+      </form>
+    </div>
+  </div>
+  <script type="text/javascript" src="{{url_for('static', filename='js/script.js')}}"></script>
+{% endblock %}

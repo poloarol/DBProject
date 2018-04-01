@@ -1,4 +1,6 @@
 from flask_sqlalchemy import SQLAlchemy
+from wtforms import Form, StringField, SubmitField, RadioField, SelectMultipleField, validators  # noqa
+from wtforms.fields.html5 import DateField
 import datetime as datime
 
 db = SQLAlchemy()
@@ -132,3 +134,22 @@ class RateItem(db.Model):
         self.comment = comment
 
     __table_args__ = (db.CheckConstraint('rating >= 1 AND rating <= 5', name='rating'),)  # noqa
+
+
+class SearchForm(Form):
+    """ Search From which allows to query the restaurant and Locals table """
+    option = StringField('Option')
+    name = StringField('Name')
+    submit = SubmitField('submit')
+
+
+class QueryRestaurants(Form):
+    """ Form which allows for the query of both the raters and Rating Table """
+    types = SelectMultipleField('Label', choices=[('Food', 'FOOD'), ('Mood', 'MOOD'), ('Price', 'PRICE'), ('Staff', 'STAFF')])  # noqa
+    date = DateField('DatePicker', format='%Y-%m-%d')
+    level = RadioField('label', choices=[(1, 'High'), (2, 'Medium'), (3, 'Low')])  # noqa
+    rater_name = StringField('Rater Name')
+    resto_name = StringField('Restaurant Name')
+    resto_type = StringField('Restaurant type')
+    resto_rating = StringField('Restaurant Ratings')
+    submit = SubmitField('submits')

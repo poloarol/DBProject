@@ -1,0 +1,30 @@
+{% extends "layout.html" %}
+
+{% block content %}
+  {{ super() }}
+  <div class="content">
+    <div class="ui four cards">
+      {% for item in data %}
+        <div class="card carte">
+          <div class="content">
+            <img class="right floated mini ui image" src="/images/avatar/large/elliot.jpg">
+            <div class="header">{{item[0]}}</div>
+            <div class="meta">{{item[1]}}</div>
+            <div class="description">
+              <p>Address: {{item[2]}}</p>
+              <p>Phone: {{item[3]}}</p>
+            </div>
+            <br>
+            <a class="header" href="#">Ratings</a>
+          </div>
+          <div class="extra content">
+            <div class="ui two buttons">
+              <div class="ui basic green button">Open: {{item[4]}}</div>
+              <div class="ui basic red button">Close: {{item[5]}}</div>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+{% endblock %}

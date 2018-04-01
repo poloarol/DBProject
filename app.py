@@ -1,6 +1,6 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request, redirect, url_for
 from sqlalchemy import create_engine
-from model import db, Resto, Locals, User, Item
+from model import db, Resto, Locals, User, Item, SearchForm, Ratings
 from faker import Faker
 from sqlalchemy import text
 
@@ -34,11 +34,24 @@ db.init_app(app)
 #             db.session.commit()
 
 
-@app.route("/restaurant")
+@app.route("/", methods=['GET', 'POST'])
+@app.route("/restaurant", methods=['GET', 'POST'])
 def main():
     data = query_restaurants()
     category = query_category()
-    return render_template("index.html", category=category, data=data)
+    form = SearchForm(request.form)
+    if request.method == 'POST':
+        search = request.form['search']
+        option = request.form['type_resto']
+        resto = request.form['resto_location']
+        if search != "":
+            # return redirect(url_for("search_resto", resto_name=search))
+            print('John')
+        elif option != 'Type':
+            return redirect(url_for("resto_category", resto_type=option))
+        else:
+            return redirect(url_for("find_location", resto_name=resto))
+    return render_template("index.html", category=category, data=data, form=form)  # noqa
 
 
 @app.route("/restaurant/items/<resto_id>/<resto_name>")
@@ -48,18 +61,30 @@ def find_resto_menu(resto_id, resto_name):
     return render_template("item.html", data=resto_item)  # noqa
 
 
-# @app.route("/restaurant/<resto_id>")
-# def resto_info(resto_name):
-#     data = db.session.query(Locals, Resto).join(Resto, Locals.restaurantid == Resto.restaurantid).filter(Resto.restaurantid == resto_id)  # noqa
-#
-#     return render_template()
+@app.route("/restaurant/<resto_name>")
+def search_resto(resto_name):
+    data = db.session.query(Resto, Locals).join(Locals, Resto.restaurantid == Locals.restaurantid).filter(Resto.types.like("%"+resto_name+"%")).all()  # noqa
+    return render_template("type.html", data=data)
 
 
 @app.route("/restaurant/<resto_type>")
 def resto_category(resto_type):
-    data = db.session.query(Resto).filter(Resto.types == resto_type)
+    data = db.session.query(Resto.name, Locals.manager_name, Locals.first_open_date).join(Resto, Locals, Locals.restaurantid == Resto.restaurantid).filter(Resto.types == resto_type)  # noqa
     return render_template("type.html", data=data)
 
+
+@app.route("/restaurant/location/<resto_name>")
+def find_location(resto_name):
+    data = db.session.query(Locals.manager_name, Locals.first_open_date, Locals.street_address, Locals.phone_number, Locals.hour_open, Locals.hour_close).join(Resto, Locals.restaurantid == Resto.restaurantid).filter(Resto.name == resto_name)  # noqa
+    return render_template("info.html", data=data)
+
+
+@app.route("/restaurant/rating/<resto_name>")
+def find_ratings(resto_name):
+    data = db.session.query(User.name, Ratings.date, Ratings.comments, Ratings.food, Ratings.mood, Ratings.staff, Ratings.price).join(Ratings, Ratings.user_id == User.user_id and Resto.restaurantid == Ratings.Restuarantid).filter(Resto.name == resto_name).order_by(Ratings.date)  # noqa
+
+    # access data like so data[0]
+    return render_template("rating.html", data=data, name=resto_name)
 
 # def find_max_item():
 #     data = db.session.execute("select * from restaurant")
@@ -67,6 +92,7 @@ def resto_category(resto_type):
 #         print(data.name)
 #     for item in data:
 #         print(item.Item.name, item.Item.price, item.Locals.manager_name)
+
 
 def query_category():
     data = db.session.query(Resto.types).order_by(Resto.types).distinct()

@@ -22,7 +22,7 @@ body{
   margin: 0 auto;
 }
 
-.three.fields{
+.four.fields{
   margin: 0 auto;
 }
 
@@ -54,10 +54,74 @@ div.bigimage{
   display: inline-block;
 }
 
+.carte{
+  width: 320px !important;
+}
+
+div.container.main{
+  margin: 0 auto;
+  width: 80%;
+  margin-top: 5em !important;
+}
+
+div.container.first{
+  width: 100%;
+}
+
+div.ui.basic.segment{
+  width: 80%;
+  margin: 0 auto;
+  margin-top: 5em !important;
+}
+
+table.ui.grey.table{
+  width: 95%;
+  margin: 0 auto;
+}
+
+div.container.first{
+  float: left;
+}
+
 .ui.four.cards{
   width: 80% !important;
   margin: 0 auto;
   position: relative;
   min-height: 80%;
   top: 20px;
+}
+
+div.container.rate{
+  width: 80%;
+  margin: 0 auto;
+}
+
+div.container > div.ui.card{
+  margin-left: 5em;
+  margin-top: 5em;
+}
+
+.clear:after{
+  clear: both;
+  display: table;
+}
+
+div.container.comm{
+  width: 80%;
+  margin: 0 auto;
+  margin-top: 5em;
+}
+
+div.ui.comments{
+  width: 90%;
+  margin-left: 5em;
+}
+
+div.extra.rate{
+  display: inline-flex;
+}
+
+div.myItem{
+  width: 80%;
+  margin: 0 auto;
 }

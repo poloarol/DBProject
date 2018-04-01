@@ -3,4 +3,22 @@
 {% block content %}
   {{ super() }}
   <div class="divise"></div>
+  <div class="container">
+    <div class="ui four cards">
+      {% for item in data %}
+          <div class="ui card">
+            <div class="content">
+              <div class="right floated meta">{{item[1].manager_name}}</div>
+                <img class="ui avatar image" src="https://imgur.com/I80W1Q0.png" alt="{{item[1]}}">
+            </div>
+            <div class="image">
+              <img src="" alt="{{item[0]}}">
+            </div>
+            <div class="content">
+              <p>Open Date: {{item[2]}}</p>
+            </div>
+          </div>
+      {% endfor %}
+    </div>
+  </div>
 {% endblock %}
