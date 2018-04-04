@@ -14,8 +14,8 @@ app = Flask(__name__)
 
 
 app.config['DEBUG'] = True
-engine = create_engine('postgresql://postgres:polo@localhost/restaurants')
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:polo@localhost/restaurants'  # noqa
+engine = create_engine('postgresql://postgres:abc123@localhost/restaurants')
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:abc123@localhost/restaurants'  # noqa
 app.config['SQLALCHEMY_ECHO'] = True
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 app.config['TEMPLATES_AUTO_RELOAD'] = True
@@ -86,12 +86,29 @@ def find_ratings(resto_name):
     # access data like so data[0]
     return render_template("rating.html", data=data, name=resto_name)
 
-# def find_max_item():
-#     data = db.session.execute("select * from restaurant")
-#     for item in data:
-#         print(data.name)
-#     for item in data:
-#         print(item.Item.name, item.Item.price, item.Locals.manager_name)
+def find_max_item():
+    #data = db.session.execute("select * from restaurant")
+
+    queryF = db.session.execute("select res.name,r.name, ra.price,ra.food,ra.mood, ra.staff from rater r , rating ra, restaurant res where r.user_id = ra.user_id and ra.restaurantid = res.restaurantid group by (r.name,res.restaurantid,ra.price,ra.food,ra.mood, ra.staff) order by (res.name,r.name);")# noqa
+
+    queryG= db.session.execute("select distinct res.name, l.phone_number,res.types from restaurant res, location l, rating ra where res.restaurantid = ra.restaurantid and l.restaurantid = res.restaurantid and ra.date not between '2015-01-01' and '2015-12-31' order by (res.name);")# noqa
+
+    queryH= db.session.execute("select distinct res.name, l.first_open_date from restaurant res , location l ,rating ra where res.restaurantid = ra.restaurantid and l.restaurantid = res.restaurantid and ra.staff <(select min(ra.staff) from rater r, rating ra where r.name = 'Stone' and ra.user_id = r.user_id);")# noqa
+    #spacing problem with fastfoods
+    queryI= db.session.execute("select distinct res.name, r.name from rater r, rating ra ,restaurant res where r.user_id = ra.user_id and ra.restaurantid = res.restaurantid and res.types =' Fast Food ' and ra.food = 5 ;")# noqa
+
+    queryJ= db.session.execute("select distinct res.types, count(res.types) from restaurant res, rating ra where ra.restaurantid = res.restaurantid group by (res.types) order by(count) desc;")# noqa
+
+    queryK= db.session.execute("select distinct r.name, r.join_date,r.reputation from rating ra, rater r, restaurant res where ra.restaurantid = res.restaurantid and ra.user_id = r.user_id and ra.mood = 5 and ra.food = 5;")# noqa
+
+    queryL= db.session.execute("select distinct r.name,r.reputation from rating ra, rater r, restaurant res where ra.restaurantid = res.restaurantid and ra.user_id = r.user_id and ra.mood = 5 or ra.food = 5; ")# noqa
+
+
+
+    for item in data:
+        print(data0.name)
+    for item in data:
+        print(item.Item.name, item.Item.price, item.Locals.manager_name)
 
 
 def query_category():
