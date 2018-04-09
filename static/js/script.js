@@ -3,4 +3,6 @@ $(document).ready(function(){
     $(".restaurant.rating").rating('disable');
     $('.ui.search').search({type: 'category'});
     $('.ui.dropdown').dropdown();
+    $('.ui.radio.checkbox').checkbox();
+    $('#example1').calendar({type: 'date'});
 });

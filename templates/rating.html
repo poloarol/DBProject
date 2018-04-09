@@ -2,24 +2,20 @@
 
 {% block content %}
   {{ super() }}
-
-  <div class="container rate">
-    <div class="ui card">
-      <div class="image">
-        <img src="https://imgc.allpostersimages.com/img/print/posters/rick-morty-free-rick_a-G-15140358-0.jpg">
-      </div>
-      <div class="extra">
-        Rating:
-        <div class="ui star restaurant rating" data-max-rating ="5" data-rating="2"></div>
+  <div class="container two">
+    <a href="#" class="ui top attached button">See our frequent raters</a>
+    <div class="ui raised segment">
+      <div class="image resto">
+        <img src="#" alt="{{resto_name}}">
       </div>
     </div>
   </div>
   <div class="container comm">
+    <h3 class="ui dividing header">Leave a review</h3>
     <div class="ui comments">
-      <h3 class="ui dividing header">Leave a review</h3>
       {% for item in data %}
       <div class="ui very large raised segment">
-        <div class="comment">
+        <div class="comment eigth wide">
           <a class="avatar">
             <img src="/images/avatar/small/joe.jpg">
           </a>

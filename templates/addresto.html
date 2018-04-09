@@ -23,6 +23,9 @@
     .column {
       max-width: 450px;
     }
+    input{
+      margin: 5px !important;
+    }
   </style>
 <body>
 
@@ -30,15 +33,20 @@
     <div class="column">
       <h2 class="ui teal image header">
         <div class="content">
-          Log-in to your account
+          Add a restaurant
         </div>
       </h2>
-      <form class="ui large form" action="{{url_for('login')}}" method="post">
+      <form class="ui large form" action="{{url_for('add_resto')}}" method="post">
         <div class="ui stacked segment">
           <div class="field">
             <div class="ui left icon input">
-              <i class="user icon"></i>
-              <input type="text" placeholder="User ID / E-mail" name="email">
+              <input type="text" placeholder="Restuarant name" name='name'>
+            </div>
+            <div class="ui left icon input">
+              <input type="text" placeholder="Restuarant Type" name='type'>
+            </div>
+            <div class="ui left icon input">
+              <input type="text" placeholder="URL" name="url">
             </div>
           </div>
           {{ form.submit(class='ui fluid large teal submit button')}}
@@ -49,7 +57,7 @@
       </form>
 
       <div class="ui message">
-        New to us? <a href="/create_account">Sign Up</a>
+        Have an account ? <a href="/login">Login</a>
       </div>
     </div>
   </div>

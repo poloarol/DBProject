@@ -4,6 +4,15 @@ html, body{
   height: 100%;
 }
 
+.container.move{
+  top: 20px !important;
+}
+
+h3.ui.header{
+  margin-top: 1.5em !important;
+  padding-left: 8em;
+}
+
 footer{
   position: relative;
   bottom: 0;
@@ -16,7 +25,8 @@ body{
   padding-bottom: 60px;
 }
 
-.ui.form{
+.ui.form,
+.ui.form.segment{
   width: 80%;
   top: 30px;
   margin: 0 auto;
@@ -58,10 +68,16 @@ div.bigimage{
   width: 320px !important;
 }
 
+div.container.two,
 div.container.main{
   margin: 0 auto;
   width: 80%;
   margin-top: 5em !important;
+}
+
+div.image.resto{
+  width: 90%;
+  height: 150px;
 }
 
 div.container.first{
@@ -107,14 +123,14 @@ div.container > div.ui.card{
 }
 
 div.container.comm{
-  width: 80%;
+  width: 95%;
   margin: 0 auto;
   margin-top: 5em;
 }
 
 div.ui.comments{
   width: 90%;
-  margin-left: 5em;
+  margin-left: 20em;
 }
 
 div.extra.rate{

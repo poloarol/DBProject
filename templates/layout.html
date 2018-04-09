@@ -3,9 +3,11 @@
   <head>
     <meta charset="utf-8">
     <title>CSI2132: Database Project</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui-calendar/0.0.8/calendar.min.css/css/master.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.1/semantic.min.css"/>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.1/semantic.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui-calendar/0.0.8/calendar.min.js"></script>
     <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/master.css') }}">
   </head>
   <body>
@@ -16,9 +18,9 @@
           <div class="ui container">
             <div class="ui large secondary menu">
               <div class="right item">
-                <a class="ui inverted button space">Log in</a>
+                <a href="/login" class="ui inverted button space">Log in</a>
                 <div class="divise"></div>
-                <a class="ui inverted button space">Create Account</a>
+                <a href="/create_account" class="ui inverted button space">Create Account</a>
               </div>
             </div>
           </div>
@@ -35,6 +37,7 @@
         </div>
       </div>
     </div>
+
     {% endblock %}
     {% block footer %}
     <footer>

@@ -1,0 +1,70 @@
+{% extends "layout.html" %}
+{% block content %}
+  {{ super() }}
+  <div class="divise"></div>
+  <div class="container main">
+    <div class="container first">
+      <h2>Raters who give best food and mood</h2>
+      <a href="/restaurant/query/form" class="ui top attached button">Choose your ratings</a>
+      <table class="ui pink table">
+        <thead>
+          <tr>
+            <th>Rater name</th>
+            <th>Join date</th>
+            <th>Reputation</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for item in q1 %}
+          <tr>
+            <td>
+              <a class="header">
+                  {{item[0]}}
+              </a>
+            </td>
+            <td>{{item[1]}}</td>
+            <td>
+              <div class="ui star restaurant rating" data-max-rating="5" data-rating="{{item[2]}}"></div>
+            </td>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="container move">
+    <div class="container main">
+      <div class="container first">
+        <h2>Raters who give best food or mood</h2>
+        <table class="ui pink table">
+          <thead>
+            <tr>
+              <th>Rater name</th>
+              <th>Join date</th>
+              <th>Reputation</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for i in q2 %}
+            <tr>
+              <td>
+                <a class="header">
+                    {{i[0]}}
+                </a>
+              </td>
+              <td>{{i[1]}}</td>
+              <td>
+                <div class="ui star restaurant rating" data-max-rating="5" data-rating="{{i[2]}}"></div>
+              </td>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+        <a href="/restaurant/ratings/" class="ui bottom attached button">View ratings given by our experts</a>
+      </div>
+    </div>
+  </div>
+  <script type="text/javascript" src="{{url_for('static', filename='js/script.js')}}"></script>
+{% endblock %}

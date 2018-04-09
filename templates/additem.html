@@ -1,0 +1,50 @@
+{% extends "layout.html" %}
+{% block content %}
+  {{ super() }}
+  <form class="ui form segment" action="{{url_for('addItem')}}" method="post">
+    <h4 class="ui dividing header">Add Item</h4>
+    <div class="field">
+      <div class="three fields">
+        <label>Name</label>
+        <div class="field">
+          <input type="text" placeholder="Item name" name='item'>
+        </div>
+         <label>Type</label>
+        <div class="field">
+          <input type="text" placeholder="Item type" name='type'>
+        </div>
+        <label>Category</label>
+       <div class="field">
+         <input type="text"  placeholder="Item type" name='category'>
+       </div>
+      </div>
+    </div>
+    <div class="field">
+      <div class="fields">
+         <label>Price</label>
+        <div class="seven wide field">
+          <input type="number" placeholder="Item price" name='price' step=".01">
+        </div>
+        <div class="divise"></div>
+        <div class="divise"></div>
+        <div class="divise"></div>
+        <div class="seven wide field">
+          <select class="ui fluid dropdown" name="resto">
+            <option>Restaurant</option>
+            {% for item in data %}
+              <option value={{item[0]}}>{{item[1]}}</option>
+            {% endfor %}
+          </select>
+        </div>
+      </div>
+    </div>
+      <div class="field">
+        <label>Description</label>
+        <textarea name='description'></textarea>
+      </div>
+    {{form.submit(class='ui primary button')}}
+  </form>
+
+ <script type="text/javascript" src="{{url_for('static', filename='js/script.js')}}"></script>
+
+{% endblock %}

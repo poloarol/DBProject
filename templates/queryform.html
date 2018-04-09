@@ -1,0 +1,58 @@
+{% extends "layout.html" %}
+
+{% block content %}
+  {{ super() }}
+  <form class="ui form segment" action="{{url_for('query_form')}}" method="post">
+      <div class="field ten wide">
+        <label>{{form.date.label}}</label>
+        <div class="ui calendar" id="example1">
+          <div class="ui input left icon">
+            <i class="calendar icon"></i>
+            <input type="text" placeholder="Date/Time" name="date">
+          </div>
+        </div>
+      </div>
+    <div class="inline field">
+      <div class="field ten wide">
+        <label>Rater</label>
+        <select class="ui fluid dropdown" name="rater">
+          <option>Rater</option>
+          {% for i in user %}
+            <option value="{{i[0]}}">{{i[0]}}</option>
+          {% endfor %}
+        </select>
+      </div>
+    </div>
+    <div class="inline field">
+      <div class="field">
+        <label>Choose Criteria</label>
+        <div class="two fields">
+          <div class="field six wide column">
+            <label>Restaurant Types</label>
+            <select class="ui fluid dropdown" name="resto">
+              <option>Types</option>
+              {% for d in resto %}
+                <option value="{{d[0]}}">{{d[0]}}</option>
+              {% endfor %}
+            </select>
+          </div>
+          <div class="field six wide column">
+            <label>Options</label>
+            <div class="grouped fields">
+              <div class="field">
+                {% for sub in form.types %}
+                  <div class="ui radio checkbox">
+                    {{sub}}
+                    {{sub.label}}
+                  </div>
+                {% endfor %}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    {{ form.submit(class='ui primary button')}}
+  </form>
+  <script type="text/javascript" src="{{url_for('static', filename='js/script.js')}}"></script>
+{% endblock %}

@@ -12,13 +12,42 @@
                 <img class="ui avatar image" src="https://imgur.com/I80W1Q0.png" alt="{{item[1]}}">
             </div>
             <div class="image">
-              <img src="" alt="{{item[0]}}">
+              <img src="" alt="{{item[0].resto_name}}">
             </div>
             <div class="content">
-              <p>Open Date: {{item[2]}}</p>
+              <p>Open Date: {{item[1].first_open_date}}</p>
             </div>
           </div>
       {% endfor %}
     </div>
+  </div>
+  <div class="divise"></div>
+  <div class="container">
+    <div class="ui basic segment">
+      <div class="divise"></div>
+      <h4 class="ui horizontal header divider">
+        <i class="shekel sigh icon"></i>
+        We don's want to ruin you, prepare the Moula</h4>
+        <div class="container main">
+          <div class="container first">
+            <table class="ui pink table">
+              <thead>
+                <tr>
+                  <th>Item category</th>
+                  <th>Average price</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for done in donee %}
+                <tr>
+                  <td>{{done}}</td>
+                  <td>{{done}}</td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
   </div>
 {% endblock %}

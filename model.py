@@ -1,5 +1,5 @@
 from flask_sqlalchemy import SQLAlchemy
-from wtforms import Form, StringField, SubmitField, RadioField, SelectMultipleField, validators  # noqa
+from wtforms import Form, StringField, SubmitField, RadioField, validators  # noqa
 from wtforms.fields.html5 import DateField
 import datetime as datime
 
@@ -15,7 +15,7 @@ class Resto(db.Model):
     types = db.Column(db.VARCHAR(20), nullable=False)
     url = db.Column(db.VARCHAR(50))
 
-    def __init__(self, name, type, url):
+    def __init__(self, name, types, url):
         self.name = name
         self.types = types
         self.url = url
@@ -145,11 +145,31 @@ class SearchForm(Form):
 
 class QueryRestaurants(Form):
     """ Form which allows for the query of both the raters and Rating Table """
-    types = SelectMultipleField('Label', choices=[('Food', 'FOOD'), ('Mood', 'MOOD'), ('Price', 'PRICE'), ('Staff', 'STAFF')])  # noqa
-    date = DateField('DatePicker', format='%Y-%m-%d')
-    level = RadioField('label', choices=[(1, 'High'), (2, 'Medium'), (3, 'Low')])  # noqa
+    types = RadioField('Label', choices=[('food', 'FOOD'), ('mood', 'MOOD'), ('price', 'PRICE'), ('staff', 'STAFF')])  # noqa
+    date = DateField('Date', format='%Y-%m-%d')
     rater_name = StringField('Rater Name')
-    resto_name = StringField('Restaurant Name')
-    resto_type = StringField('Restaurant type')
-    resto_rating = StringField('Restaurant Ratings')
-    submit = SubmitField('submits')
+    submit = SubmitField('Submit')
+
+
+class RestoPicture:
+    """ Stores path to pictures for a specific restaurants """
+    __tablename__ = 'restopicture'
+    pic_id = db.Column(db.Integer, primary_key=True)
+    resto_id = db.Column(db.Integer, db.ForeignKey("restaurant.restaurantid"))
+    path = db.Column(db.Text, nullable=False)
+
+
+class LoginForm(Form):
+    submit = SubmitField('Submit')
+
+
+class CreateForm(Form):
+    submit = SubmitField('Submit')
+
+
+class CreateResto(Form):
+    submit = SubmitField('Submit')
+
+
+class CreateItem(Form):
+    submit = SubmitField('Submit')
