@@ -18,8 +18,8 @@ app = Flask(__name__)
 
 
 app.config['DEBUG'] = True
-engine = create_engine('postgresql://postgres:polo@localhost/restaurants')
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:polo@localhost/restaurants'  # noqa
+engine = create_engine('postgresql://postgres:abc123@localhost/restaurants')
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:abc123@localhost/restaurants'  # noqa
 app.config['SQLALCHEMY_ECHO'] = True
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 app.config['TEMPLATES_AUTO_RELOAD'] = True
@@ -181,6 +181,7 @@ def find_ratings(resto_name):
 
     return render_template("rating.html", data=data, name=resto_name)
 
+<<<<<<< HEAD
 def names_and_reputation():
     data = db.session.execute("select res.name, r.name, r.reputation, m.name, m.price, ri.comment from rater r, ratingitem ri, menuitem m, restaurant res where m.item_id= ri.item_id and res.name = 'Don Cuco' and r.name = any (Select result1.name from (select results.resname,results.ratername as name,count(results.ratername) as tcount from (select res.name as resname, r.name as ratername, mi.name as itemname from menuitem mi inner join ratingitem ri on mi.item_id=ri.item_id inner join restaurant res on res.restaurantid = mi.restaurantid inner join rater r on r.user_id = ri.user_id where res.name = 'Don Cuco') as results group by(results.resname,results.ratername,results.ratername) order by tcount desc limit 2) as result1);")
     
@@ -191,6 +192,31 @@ def rating_lower_john():
 @app.route("/restaurant/ratings/frequent/rater/<resto_name>")
 def freq_raters(resto_name):
     return render_template()
+=======
+def find_max_item():
+    #data = db.session.execute("select * from restaurant")
+
+    queryF = db.session.execute("select res.name,r.name, ra.price,ra.food,ra.mood, ra.staff from rater r , rating ra, restaurant res where r.user_id = ra.user_id and ra.restaurantid = res.restaurantid group by (r.name,res.restaurantid,ra.price,ra.food,ra.mood, ra.staff) order by (res.name,r.name);")# noqa
+
+    queryG= db.session.execute("select distinct res.name, l.phone_number,res.types from restaurant res, location l, rating ra where res.restaurantid = ra.restaurantid and l.restaurantid = res.restaurantid and ra.date not between '2015-01-01' and '2015-12-31' order by (res.name);")# noqa
+
+    queryH= db.session.execute("select distinct res.name, l.first_open_date from restaurant res , location l ,rating ra where res.restaurantid = ra.restaurantid and l.restaurantid = res.restaurantid and ra.staff <(select min(ra.staff) from rater r, rating ra where r.name = 'Stone' and ra.user_id = r.user_id);")# noqa
+    #spacing problem with fastfoods
+    queryI= db.session.execute("select distinct res.name, r.name from rater r, rating ra ,restaurant res where r.user_id = ra.user_id and ra.restaurantid = res.restaurantid and res.types =' Fast Food ' and ra.food = 5 ;")# noqa
+
+    queryJ= db.session.execute("select distinct res.types, count(res.types) from restaurant res, rating ra where ra.restaurantid = res.restaurantid group by (res.types) order by(count) desc;")# noqa
+
+    queryK= db.session.execute("select distinct r.name, r.join_date,r.reputation from rating ra, rater r, restaurant res where ra.restaurantid = res.restaurantid and ra.user_id = r.user_id and ra.mood = 5 and ra.food = 5;")# noqa
+
+    queryL= db.session.execute("select distinct r.name,r.reputation from rating ra, rater r, restaurant res where ra.restaurantid = res.restaurantid and ra.user_id = r.user_id and ra.mood = 5 or ra.food = 5; ")# noqa
+
+
+
+    for item in data:
+        print(data0.name)
+    for item in data:
+        print(item.Item.name, item.Item.price, item.Locals.manager_name)
+>>>>>>> ad94c262f80914923064176461c5bb3f4f0c3961
 
 
 def query_category():
